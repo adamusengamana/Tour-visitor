@@ -106,6 +106,12 @@ const location = useLocation();
           color={textColor}
         />
         {/* Right Button */}
+         <HStack
+          as="nav"
+          spacing={6}
+          display={{ base: "none", sm: "flex", md: "flex", lg: "flex" }}
+          fontWeight="medium"
+        > 
         <Button
           as={RouterLink}
           to="/login"
@@ -125,6 +131,26 @@ const location = useLocation();
         >
           Sign In
         </Button>
+        <Button
+          as={RouterLink}
+          to="/register"
+          colorPalette="black"
+          size="sm"
+          display={
+            open
+              ? "none"
+              : {
+                  base: "inline-flex",
+                  sm: "inline-flex",
+                  md: "inline-flex",
+                  lg: "inline-flex",
+                }
+          }
+          
+        >
+          Register
+        </Button>
+        </HStack>
       </Flex>
 
       {/* Mobile Links (Collapsible Menu) */}

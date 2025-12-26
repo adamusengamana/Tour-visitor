@@ -6,7 +6,7 @@ import Booking from "../pages/booking";
 import About from "../pages/about";
 import LoginForm  from "../pages/login";
 import ErrorPage  from "../pages/error";
-
+import RegisterForm from "../pages/register";
 
 export default function AppRouter() {
   return (
@@ -16,6 +16,7 @@ export default function AppRouter() {
       <Route path="/booking" element={<Booking/>} />
       <Route path="/about" element={<About />} />
       <Route path="/login" element={<LoginForm />} />
+      <Route path="/register" element={<RegisterForm />} />
       <Route path="*" element={<ErrorPage/>} />
     </Routes>
   );

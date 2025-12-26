@@ -43,15 +43,14 @@ export default function Home() {
         p={8}
         margin={10}
         boxShadow="md"
-        borderRadius="md"
-        bg="white"
+        borderRadius="md"    
         maxW="600px"
         mx="auto"
         mt={10}
         textAlign="center"
       >
         <Text fontSize="2xl" fontWeight="bold">
-          Welcome to TourEase 🌍
+          Welcome to TourEase 
         </Text>
         <Text mt={3}>
           Discover amazing destinations and book your next adventure!
