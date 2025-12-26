@@ -1,6 +1,8 @@
 import { Box, HStack, Separator, Stack, Text} from "@chakra-ui/react";
+import {useColorModeValue } from "./ui/color-mode";
 
 export default function Footer() {
+  const bg = useColorModeValue("teal.100", "gray.100");
   return (
     <Box>
       <Stack
@@ -11,8 +13,9 @@ export default function Footer() {
         justify="center"
         p="5"
         mt="10"
-        bg="gray.100"
-               
+        bg={bg}
+        position="sticky"
+        bottom="0"
       >
         <Stack 
         direction={{ base: "column", sm: "column", md: "row", lg: "row" }}

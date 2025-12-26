@@ -12,6 +12,7 @@ root.render(
     <ColorModeProvider>
   <Provider>
     <App />
+    
   </Provider>
   </ColorModeProvider>
   </React.StrictMode>
