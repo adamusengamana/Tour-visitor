@@ -44,17 +44,17 @@ function LoginForm() {
         });
         navigate('/');
       }
+
+
       else {
         toaster.create(
           {
             type: 'error',
             title: 'Login failed.',
             description: data.error || 'Please check your credentials.',
-            status: 'error',
             duration: 3000,
             isClosable: true,
           });
-          
 
       }
     }
