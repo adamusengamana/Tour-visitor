@@ -19,7 +19,7 @@ function LoginForm() {
     setLoadingLogin(true);
     e.preventDefault();
 
-    try {
+    
       setError("");
       if (!email || !password) {
         setError("This field is required");
@@ -28,10 +28,11 @@ function LoginForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
-      });
+      })
 
-
+   .then(async response => {
       const data = await response.json();
+      
       if (response.ok) {
         localStorage.setItem('token', data.token);
         console.log('Login successful:', data);
@@ -57,8 +58,9 @@ function LoginForm() {
           });
 
       }
-    }
-    catch (error) {
+    })
+    
+    .catch (error => { 
       console.error('Login error:', error);
       toaster.create(
           {
@@ -68,11 +70,12 @@ function LoginForm() {
             status: 'error',
             duration: 3000,
             isClosable: true,
-          });
-
-    } finally {
+          })
+        })
+     
+    .finally(() => {
       setLoadingLogin(false);
-    }
+    });
   }
   function handleRegister() {
     // Basic client-side validation before sending
