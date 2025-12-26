@@ -44,8 +44,6 @@ function LoginForm() {
         });
         navigate('/');
       }
-
-
       else {
         toaster.create(
           {
@@ -56,11 +54,21 @@ function LoginForm() {
             duration: 3000,
             isClosable: true,
           });
+          
 
       }
     }
     catch (error) {
       console.error('Login error:', error);
+      toaster.create(
+          {
+            type: 'error',
+            title: 'Login failed.',
+            description: data.error || 'An unexpected error occurred.',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          });
 
     } finally {
       setLoadingLogin(false);
@@ -104,7 +112,6 @@ function LoginForm() {
         toaster.error(
           {
             title: error.message
-
             , duration: 3000,
             isClosable: true
           });
