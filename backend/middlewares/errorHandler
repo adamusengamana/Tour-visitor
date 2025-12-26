@@ -1,0 +1,19 @@
+module.exports = (err, req, res, next) => {
+ 
+  console.error(`[${new Date().toISOString()}] ${err.code || 'ERROR'}: ${err.message}`);
+    const statusMap = {
+    USER_NOT_FOUND: 404,
+    INVALID_PASSWORD: 401,
+    EMAIL_TAKEN: 409,
+    VALIDATION_ERROR:400,
+  };
+
+  const status = err.status || statusMap[err.code] || 500;
+
+  res.status(status).json({
+    error: err.message,
+    code: err.code || 'INTERNAL_ERROR',
+  });
+
+
+};

@@ -1,0 +1,113 @@
+import { Field, Input, Button, Stack, Box } from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toaster } from "../components/ui/toaster";
+import { Spinner } from '@chakra-ui/react';
+import { useColorModeValue } from "../components/ui/color-mode";
+
+function rwandareve() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  const [loadingRegister, setLoadingRegister] = useState(false);
+
+async function handleSubmit(e) {
+    setLoadingLogin(true);
+    e.preventDefault();
+
+    try {
+      setError("");
+      if (!email || !password) {
+        setError("This field is required");
+      }
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        console.log('Login successful:', data);
+        toaster.create({
+          type: 'success',
+          title: data.message || 'Login successful!',
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
+        navigate('/');
+      }
+
+
+      else {
+        toaster.create(
+          {
+            type: 'error',
+            title: 'Login failed.',
+            description: data.error || 'Please check your credentials.',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          });
+
+      }
+    }
+    catch (error) {
+      console.error('Login error:', error);
+
+    } finally {
+      setLoadingLogin(false);
+    }
+  }
+
+  return (
+
+  <Box as="form" onSubmit={handleSubmit} width={500} mx="auto" boxShadow={formShadow} p={6} mt={20} borderRadius="md" bg={formBg}>
+        <Stack spacing={5}>
+          <Field.Root invalid={!email && Boolean(error)}>
+            <Field.Label>Email Address</Field.Label>
+            <Input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="email"
+              bg={inputBg}
+              borderColor={inputBorder}
+              color={inputColor}
+              _placeholder={{ color: useColorModeValue('gray.400', 'gray.500') }}
+  
+            />
+            <Field.ErrorText>{!email && error}</Field.ErrorText>
+          </Field.Root>
+          <Field.Root invalid={!password && Boolean(error)}>
+            <Field.Label>Password</Field.Label>
+            <Input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              autoComplete="current-password"
+              bg={inputBg}
+              borderColor={inputBorder}
+              color={inputColor}
+              _placeholder={{ color: useColorModeValue('gray.400', 'gray.500') }}
+  
+            />
+            <Field.ErrorText>{!password && error}</Field.ErrorText>
+          </Field.Root >
+          <Button type="submit" colorScheme="teal" _hover={{ bg: "teal.400" }}>
+            {loadingLogin ? <Spinner size='sm' /> : 'Login'}
+
+              </Button>
+                    
+                  </Stack>
+                </Box>
+              );
+ } 
+            
+            export default rwandareve;
